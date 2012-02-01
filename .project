@@ -3,6 +3,7 @@
 	<name>MetricCalculator</name>
 	<comment></comment>
 	<projects>
+		<project>Common Server</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
