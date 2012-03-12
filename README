@@ -1,0 +1,5 @@
+To compile. Run from home dir for app 
+/usr/java/jdk1.6.0_20/bin/javac -sourcepath src -classpath "/usr/share/tomcat6/shared/classes:.:/usr/java/jdk1.6.0_20/bin:/usr/share/tomcat6/shared/lib/*" src/applab/metricCalculator/MetricCalculator.java -d bin
+
+To run. From bin dir
+/usr/java/jdk1.6.0_20/bin/java -classpath "/usr/share/tomcat6/shared/classes:.:/usr/java/jdk1.6.0_20/bin:/usr/share/tomcat6/shared/lib/*:../lib/*" -DdashboardId=1 applab/metricCalculator/MetricCalculator
