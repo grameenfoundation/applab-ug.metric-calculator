@@ -225,6 +225,9 @@ public class MetricParameter {
      */
     public MetricCalculation updateCalculation(MetricCalculation metricCalculation, String answer) {
 
+        if (answer == null) {
+            return metricCalculation;
+        }
         if (this.questionType.toString().equals("number")) {
             try {
                 Double answerInt = Double.valueOf(answer);
