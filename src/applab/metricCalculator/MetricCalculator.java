@@ -29,6 +29,7 @@ public class MetricCalculator {
     private Boolean activeOnly = true;
 
     private ArrayList<Dashboard> dashboards;
+    private Integer quarterModifier;
 
     /**
      * Main method
@@ -96,6 +97,11 @@ public class MetricCalculator {
         } catch (SQLException e) {
             e.printStackTrace();
             System.exit(-1);
+        }
+
+        // Set the quarter modifier if there is one
+        if (this.quarterModifier != 0) {
+            InterviewerMap.setQuarterModifier(this.quarterModifier);
         }
         this.dashboards = new ArrayList<Dashboard>();
         this.saveAttempts = 0;
@@ -241,6 +247,22 @@ public class MetricCalculator {
                  System.exit(-1);
             }
         }
+
+        String quarterModifier = System.getProperty("quarterModifier");
+        if (quarterModifier != null) {
+
+            // Try to parse the property to an integer
+            try {
+                this.quarterModifier = Integer.valueOf(quarterModifier);
+            }
+            catch (NumberFormatException e) {
+                 System.out.println("Quarter Modifier Parameter should be a valid positive integer. You entered " + dashboardId);
+                 System.exit(-1);
+            }
+        }
+        else {
+            this.quarterModifier = 0;
+        }
         this.partnerName = System.getProperty("partnerName");
         this.dashboardName = System.getProperty("dashboardName");
         this.filePath = System.getProperty("configFile");
@@ -258,10 +280,11 @@ public class MetricCalculator {
      */
     public void printUsage() {
 
-        System.out.println("Format is java <-DpartnerId=1> <-DpartnerName=partName> <-DdashboardId=5> <-DdashboardName=dashName> MetricCalculator <help> <all> <allowInactive>");
+        System.out.println("Format is java <-DpartnerId=1> <-DpartnerName=partName> <-DdashboardId=5> <-DdashboardName=dashName> <-quarterModifier=n> MetricCalculator <help> <all> <allowInactive>");
         System.out.println("You must include atleast one of the properties.");
         System.out.println("Dashboard name or Id will override partner name or Id");
         System.out.println("Id will override name");
+        System.out.println("quarterModifier - How many quarters back the figures need to be calculated for");
         System.out.println("Options:-");
         System.out.println("help          - Prints usage");
         System.out.println("all           - Calculates all the dashboards");

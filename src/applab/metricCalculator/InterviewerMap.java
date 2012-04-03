@@ -37,6 +37,7 @@ public class InterviewerMap {
     // A map of maps that contains the total number of submissions for each survey and for each question asked. This is filled lazily
     private HashMap<String, HashMap<String, Double>> submissionCount;
 
+    // Set the date that will be used throughout update process
     private Calendar time;
     public InterviewerMap() {
     }
@@ -49,6 +50,8 @@ public class InterviewerMap {
         map.districtMap = new HashMap<String, String>();
         map.submissionCount = new HashMap<String, HashMap<String, Double>>();
         map.time = Calendar.getInstance();
+
+        // Go back to previous day.
         map.time.roll(Calendar.DAY_OF_YEAR, false);
         InterviewerMap.singletonValue = map;
     }
@@ -457,6 +460,16 @@ public class InterviewerMap {
             init();
         }
         return singletonValue.time;
+    }
+
+    /**
+     * Set the quarter modifier
+     */
+    public static void setQuarterModifier(Integer quarterModifier) {
+        if (singletonValue == null) {
+            init();
+        }
+        singletonValue.time.add(Calendar.MONTH, -(3 *  quarterModifier));
     }
 
     /**
